@@ -2,24 +2,25 @@ import React, { useState } from 'react'
 import { VoteButton } from './VoteButton'
 import { v4 as uuid } from 'uuid'
 
-export const Posts = ({name, postText, depth}) => {
-  const [postReplies, addReply]= useState([]);
-  const [replyState, setReplyState] = useState(false);
-  const [replyName, setName] = useState('');
-  const [replyPostText, setPostText] = useState('');
+export const Posts = ({ name, postText, depth }) => {
+  const [postReplies, addReply] = useState([])
+  const [replyState, setReplyState] = useState(false)
+  const [replyName, setName] = useState('')
+  const [replyPostText, setPostText] = useState('')
 
-  const addPost = () =>{
-    if (!(replyName.length>0 && replyPostText.length>0)) {
+  const addPost = () => {
+    if (!(replyName.length > 0 && replyPostText.length > 0)) {
       return
     }
     addReply([...postReplies, {
       name: replyName,
       postText: replyPostText,
-      id: uuid()}])
+      id: uuid()
+    }])
 
-    setName('');
-    setPostText('');
-    setReplyState(false);
+    setName('')
+    setPostText('')
+    setReplyState(false)
   }
 
   const content = (
@@ -32,8 +33,8 @@ export const Posts = ({name, postText, depth}) => {
         <h3>{postText}</h3>
       </div>
       <div className="is-right">
-        {depth< 3 && postReplies.map(post => (
-          <Posts depth={1+depth} key={post.id} {...post}/>
+        {depth < 3 && postReplies.map(post => (
+          <Posts depth={1 + depth} key={post.id} {...post}/>
         ))}
       </div>
       <button onClick={() => setReplyState(!replyState)}>Reply</button>
